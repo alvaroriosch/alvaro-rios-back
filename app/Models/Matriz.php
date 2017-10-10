@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Utils\MatrizValidates;
+use App\Utils\MatrizValidates;
 
 class Matriz
 {
@@ -15,15 +15,15 @@ class Matriz
    */
   private $size = 0;
 
-  public static INITIAL_VALUE = 0;
+  public static $INITIAL_VALUE = 0;
 
-  public static MIN_MATRIZ_SIZE = 1;
-  public static MAX_MATRIZ_SIZE = 100;
+  public static $MIN_MATRIZ_SIZE = 1;
+  public static $MAX_MATRIZ_SIZE = 100;
 
-  public static MIN_POINT = 1;
+  public static $MIN_POINT = 1;
 
-  public static MIN_VALUE = -pow(10, 9);
-  public static MAX_VALUE = pow(10, 9);
+  public static $MIN_VALUE = -1000000000;
+  public static $MAX_VALUE = 1000000000;
 
   /*
   * Se encarga de generar la matriz con valores iniciales en 0
@@ -34,8 +34,8 @@ class Matriz
     MatrizValidates::validateInteger($size);
     MatrizValidates::boundValidates(
       $this->size,
-      Matriz::MIN_MATRIZ_SIZE,
-      Matriz::MAX_MATRIZ_SIZE
+      Matriz::$MIN_MATRIZ_SIZE,
+      Matriz::$MAX_MATRIZ_SIZE
     );
     $this->matriz = array();
     for( $i = 0; $i < $this->size; $i++ ) {
@@ -43,7 +43,7 @@ class Matriz
       for( $j = 0; $j < $this->size; $j++ ) {
         $this->matriz[$i][$j] = array();
         for( $k = 0; $k < $this->size; $k++ ) {
-          $this->matriz[$i][$j][$k] = Matriz::INITIAL_VALUE;
+          $this->matriz[$i][$j][$k] = Matriz::$INITIAL_VALUE;
         }
       }
     }
@@ -60,23 +60,23 @@ class Matriz
     MatrizValidates::validateInteger($x, $y, $z, $value);
     MatrizValidates::boundValidates(
       $x,
-      Matriz::MIN_POINT,
+      Matriz::$MIN_POINT,
       $this->size
     );
     MatrizValidates::boundValidates(
       $y,
-      Matriz::MIN_POINT,
+      Matriz::$MIN_POINT,
       $this->size
     );
     MatrizValidates::boundValidates(
       $z,
-      Matriz::MIN_POINT,
+      Matriz::$MIN_POINT,
       $this->size
     );
     MatrizValidates::boundValidates(
       $value,
-      Matriz::MIN_VALUE,
-      Matriz::MAX_VALUE,
+      Matriz::$MIN_VALUE,
+      Matriz::$MAX_VALUE
     );
     $this->matriz[$x - 1][$y - 1][$z - 1] = $value;
   }
@@ -98,17 +98,17 @@ class Matriz
     MatrizValidates::validateInteger($x1, $y1, $z1, $x2, $y2, $z2);
     MatrizValidates::boundValidates(
       $x1,
-      Matriz::MIN_POINT,
+      Matriz::$MIN_POINT,
       $x2
     );
     MatrizValidates::boundValidates(
       $y1,
-      Matriz::MIN_POINT,
+      Matriz::$MIN_POINT,
       $y2
     );
     MatrizValidates::boundValidates(
       $z1,
-      Matriz::MIN_POINT,
+      Matriz::$MIN_POINT,
       $z2
     );
     MatrizValidates::boundValidates(

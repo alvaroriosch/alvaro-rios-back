@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use InvalidArgumentException;
+
 class MatrizValidates
 {
 
@@ -9,6 +11,7 @@ class MatrizValidates
     if ($value < $min || $value > $max) {
       throw new InvalidArgumentException("$value esta fuera de los limites");
     }
+    return true;
   }
 
   public static function validateInteger() {
@@ -18,5 +21,6 @@ class MatrizValidates
         throw new InvalidArgumentException("$value debe ser un entero");
       }
     }
+    return true;
   }
 }
