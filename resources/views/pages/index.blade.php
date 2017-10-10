@@ -28,7 +28,7 @@
 @endsection
 
 @section('content')
-  <form class="" action="/" method="post">
+  <form action="/" method="post">
     <div class="error">
 
     </div>
@@ -61,6 +61,7 @@
 @section('scripts')
   <script type="text/javascript">
     $(document).ready(function() {
+      let num_actions = [0,0];
       const template_update = `
         <div class="action update">
           <label>UPDATE</label>
@@ -122,8 +123,24 @@
         const action = $('#actions').val();
         if (action === '1') {
           $('#action_container').append(template_update.replace(/@max/g, matriz_size));
+          num_actions[0] += 1;
         } else if (action === '2') {
           $('#action_container').append(template_query.replace(/@max/g, matriz_size));
+          num_actions[1] += 1;
+        }
+      });
+      $('form').submit(function(e){
+        if (num_actions[0] == 0 && num_actions[1] == 0) {
+          $('.error').text('Está prueba no tiene ninguna acción, seleccione alguna');
+          e.preventDefault();
+        }
+        if (num_actions[0] > 0 && num_actions[1] == 0) {
+          $('.error').text('Está prueba no tiene ninguna acción de consulta');
+          e.preventDefault();
+        }
+        if (num_actions[0] == 0 && num_actions[1] > 0) {
+          $('.error').text('Está prueba no tiene ninguna acción de actualización');
+          e.preventDefault();
         }
       });
     });
