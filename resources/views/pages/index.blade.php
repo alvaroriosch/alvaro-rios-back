@@ -78,7 +78,8 @@
             required
             min="{{ App\Models\Matriz::$MIN_VALUE }}"
             max="{{ App\Models\Matriz::$MAX_VALUE }}">
-          <input type="hidden" name="action[][name]" value="update">
+          <input type="hidden" name="action[][name]"
+            value="{{ App\Models\Matriz::$UPDATE_ACTION_NAME }}">
         </div>
       `;
       const template_query = `
@@ -102,7 +103,8 @@
           <input type="number" name="action[][z2]" placeholder="z2" required
             min="{{ App\Models\Matriz::$MIN_POINT }}"
             max="@max">
-          <input type="hidden" name="action[][name]" value="query">
+          <input type="hidden" name="action[][name]"
+          value="{{ App\Models\Matriz::$QUERY_ACTION_NAME }}">
         </div>
       `;
       $('#size').keyup(function() {
