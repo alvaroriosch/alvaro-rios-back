@@ -29,9 +29,8 @@
 
 @section('content')
   <form action="/" method="post">
-    <div class="error">
-
-    </div>
+    {{ csrf_field() }}
+    <div class="error"></div>
     <div class="form_row">
       <label for="size">Tamaño de la matriz N x N x N</label>
       <input
@@ -65,45 +64,45 @@
       const template_update = `
         <div class="action update">
           <label>UPDATE</label>
-          <input type="number" name="action[][x]" placeholder="x" required
+          <input type="number" name="action[@action_number][x]" placeholder="x" required
             min="{{ App\Models\Matriz::$MIN_POINT }}"
             max="@max">
-          <input type="number" name="action[][y]" placeholder="y" required
+          <input type="number" name="action[@action_number][y]" placeholder="y" required
             min="{{ App\Models\Matriz::$MIN_POINT }}"
             max="@max">
-          <input type="number" name="action[][z]" placeholder="z" required
+          <input type="number" name="action[@action_number][z]" placeholder="z" required
             min="{{ App\Models\Matriz::$MIN_POINT }}"
             max="@max">
-          <input type="number" name="action[][value]" placeholder="value"
+          <input type="number" name="action[@action_number][value]" placeholder="value"
             required
             min="{{ App\Models\Matriz::$MIN_VALUE }}"
             max="{{ App\Models\Matriz::$MAX_VALUE }}">
-          <input type="hidden" name="action[][name]"
+          <input type="hidden" name="action[@action_number][name]"
             value="{{ App\Models\Matriz::$UPDATE_ACTION_NAME }}">
         </div>
       `;
       const template_query = `
         <div class="action query">
           <label>QUERY</label>
-          <input type="number" name="action[][x1]" placeholder="x1" required
+          <input type="number" name="action[@action_number][x1]" placeholder="x1" required
             min="{{ App\Models\Matriz::$MIN_POINT }}"
             max="@max">
-          <input type="number" name="action[][y1]" placeholder="y1" required
+          <input type="number" name="action[@action_number][y1]" placeholder="y1" required
             min="{{ App\Models\Matriz::$MIN_POINT }}"
             max="@max">
-          <input type="number" name="action[][z1]" placeholder="z1" required
+          <input type="number" name="action[@action_number][z1]" placeholder="z1" required
             min="{{ App\Models\Matriz::$MIN_POINT }}"
             max="@max">
-          <input type="number" name="action[][x2]" placeholder="x2" required
+          <input type="number" name="action[@action_number][x2]" placeholder="x2" required
             min="{{ App\Models\Matriz::$MIN_POINT }}"
             max="@max">
-          <input type="number" name="action[][y2]" placeholder="y2" required
+          <input type="number" name="action[@action_number][y2]" placeholder="y2" required
             min="{{ App\Models\Matriz::$MIN_POINT }}"
             max="@max">
-          <input type="number" name="action[][z2]" placeholder="z2" required
+          <input type="number" name="action[@action_number][z2]" placeholder="z2" required
             min="{{ App\Models\Matriz::$MIN_POINT }}"
             max="@max">
-          <input type="hidden" name="action[][name]"
+          <input type="hidden" name="action[@action_number][name]"
           value="{{ App\Models\Matriz::$QUERY_ACTION_NAME }}">
         </div>
       `;
@@ -124,10 +123,16 @@
         $('.error').text('');
         const action = $('#actions').val();
         if (action === '1') {
-          $('#action_container').append(template_update.replace(/@max/g, matriz_size));
+          const html = template_update
+            .replace(/@max/g, matriz_size)
+            .replace(/@action_number/g,num_actions[0] + num_actions[1]);
+          $('#action_container').append(html);
           num_actions[0] += 1;
         } else if (action === '2') {
-          $('#action_container').append(template_query.replace(/@max/g, matriz_size));
+          const html = template_query
+            .replace(/@max/g, matriz_size)
+            .replace(/@action_number/g,num_actions[0] + num_actions[1]);
+          $('#action_container').append(html);
           num_actions[1] += 1;
         }
       });
