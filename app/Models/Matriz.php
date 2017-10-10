@@ -25,6 +25,9 @@ class Matriz
   public static $MIN_VALUE = -1000000000;
   public static $MAX_VALUE = 1000000000;
 
+  public static $QUERY_ACTION_NAME = 'query';
+  public static $UPDATE_ACTION_NAME = 'update';
+
   /*
   * Se encarga de generar la matriz con valores iniciales en 0
   * @param int $size tamaño de la matriz
