@@ -11,11 +11,20 @@ class PageController extends Controller
 {
   public static $INDEX_VIEW = "pages.index";
   public static $PROCESS_VIEW = "pages.process";
+
+  /*
+  * Se encarga de mostrar la vista principal de la app
+  * @param Request $request solicitud enviada por el navegador
+  */
   public function index(Request $request)
   {
     return view(PageController::$INDEX_VIEW, []);
   }
 
+  /*
+  * Se encarga de procesar los datos enviados por el formulario
+  * @param Request $request solicitud enviada por el navegador
+  */
   public function process(Request $request)
   {
     $request->validate([
