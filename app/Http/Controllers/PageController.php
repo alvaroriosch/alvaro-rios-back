@@ -24,21 +24,28 @@ class PageController extends Controller
 
     $input = $request->all();
 
-    $matriz = new Matriz($input['size']);
     $results = [];
+
+    $matriz = new Matriz(intval($input['size']));
+
     foreach ($input['action'] as $action)
     {
       if ($action['name'] == Matriz::$UPDATE_ACTION_NAME) {
-        $matriz->update($action['x'], $action['y'], $action['z'], $action['value']);
+        $matriz->update(
+          intval($action['x']),
+          intval($action['y']),
+          intval($action['z']),
+          intval($action['value'])
+        );
       }
       if ($action['name'] == Matriz::$QUERY_ACTION_NAME) {
         $sum = $matriz->query(
-          $action['x1'],
-          $action['y1'],
-          $action['z1'],
-          $action['x2'],
-          $action['y2'],
-          $action['z2']
+          intval($action['x1']),
+          intval($action['y1']),
+          intval($action['z1']),
+          intval($action['x2']),
+          intval($action['y2']),
+          intval($action['z2'])
         );
         array_push($results, $sum);
       }
